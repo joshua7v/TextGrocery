@@ -352,12 +352,8 @@ class LearnerModel(liblinear.model):
         :class:`IOError` will be raised.
         """
 
-        if path.exists(model_dir):
-            if force:
-                shutil.rmtree(model_dir)
-            else :
-                raise OSError('Please use force option to overwrite the existing files.')
-        os.mkdir(model_dir)
+        if not path.exists(model_dir):
+            os.mkdir(model_dir)
 
         liblinear_save_model(path.join(model_dir,'liblinear_model'), self.c_model)
         options_file = path.join(model_dir,'options.pickle')
